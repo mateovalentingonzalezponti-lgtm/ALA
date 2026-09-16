@@ -1,242 +1,229 @@
-# Ejercicio 3 — ToDo List
+# Ejercicio 3 — Lista de tareas
 
 ## Descripción
 
-En este ejercicio se desarrolla una aplicación de gestión de tareas (**ToDo List**) utilizando **JavaScript**.
+En este ejercicio se desarrolla una aplicación para administrar una lista de tareas utilizando **JavaScript**.
 
-El objetivo es permitir al usuario registrar, consultar, buscar y modificar tareas, manteniendo una estructura modular y organizada.
+La aplicación permite crear tareas, consultar las tareas existentes, buscar tareas y modificar o eliminar las que ya fueron creadas.
+
+Las tareas se mantienen en memoria durante la ejecución del programa.
 
 ---
 
-## Funcionalidades
+# Funcionalidades
 
 La aplicación permite:
 
 * Ver todas las tareas.
-* Filtrar tareas por estado:
-
-  * Pendientes.
-  * En Curso.
-  * Terminadas.
-* Buscar tareas por título o palabra clave.
-* Crear nuevas tareas.
-* Consultar el detalle de una tarea.
+* Ver tareas según su estado.
+* Buscar tareas por título.
+* Agregar nuevas tareas.
+* Ver el detalle de una tarea.
 * Editar una tarea.
 * Eliminar una tarea.
-* Modificar:
+* Modificar el estado de una tarea.
+* Modificar la dificultad.
+* Establecer una fecha de vencimiento.
 
-  * Título.
-  * Descripción.
-  * Estado.
-  * Dificultad.
-  * Fecha de vencimiento.
-* Registrar automáticamente la fecha de creación.
-* Registrar la última fecha de edición.
-* Mostrar la dificultad mediante una representación visual.
+Cada tarea también guarda la fecha de creación y la fecha de su última modificación.
 
 ---
 
-## Datos de una tarea
+# Datos de una tarea
 
-Cada tarea contiene los siguientes atributos:
+Cada tarea contiene los siguientes datos:
 
-| Atributo        | Tipo        | Descripción                                                |
-| --------------- | ----------- | ---------------------------------------------------------- |
-| `titulo`        | String      | Título de la tarea. Máximo 100 caracteres y obligatorio.   |
-| `descripcion`   | String      | Descripción de la tarea. Máximo 500 caracteres y opcional. |
-| `estado`        | Number      | Estado actual de la tarea.                                 |
-| `dificultad`    | Number      | Nivel de dificultad.                                       |
-| `creacion`      | Date        | Fecha en la que se creó la tarea.                          |
-| `ultimaEdicion` | Date        | Fecha de la última modificación.                           |
-| `vencimiento`   | Date/String | Fecha límite de la tarea. Es opcional.                     |
+| Dato            | Descripción                                                               |
+| --------------- | ------------------------------------------------------------------------- |
+| `titulo`        | Título de la tarea. Tiene un máximo de 100 caracteres.                    |
+| `descripcion`   | Descripción de la tarea. Es opcional y tiene un máximo de 500 caracteres. |
+| `estado`        | Estado actual de la tarea.                                                |
+| `dificultad`    | Dificultad de la tarea.                                                   |
+| `creacion`      | Fecha y hora en la que se creó.                                           |
+| `ultimaEdicion` | Fecha y hora de la última modificación.                                   |
+| `vencimiento`   | Fecha de vencimiento ingresada por el usuario o `null`.                   |
 
-### Estados
+## Estados
+
+Las tareas pueden tener cuatro estados:
 
 | Valor | Estado    |
 | ----- | --------- |
 | `1`   | Pendiente |
-| `2`   | En Curso  |
+| `2`   | En curso  |
 | `3`   | Terminada |
 | `4`   | Cancelada |
 
-### Dificultades
+## Dificultad
+
+La dificultad puede tener tres valores:
 
 | Valor | Dificultad |
 | ----- | ---------- |
-| `1`   | Fácil      |
-| `2`   | Medio      |
-| `3`   | Difícil    |
-
-La dificultad también se representa visualmente:
-
-* `★☆☆` → Fácil
-* `★★☆` → Medio
-* `★★★` → Difícil
+| `1`   | ★          |
+| `2`   | ★★         |
+| `3`   | ★★★        |
 
 ---
 
-## Estructura del proyecto
+# Organización del proyecto
+
+El proyecto está dividido en diferentes carpetas para separar las responsabilidades de cada parte.
 
 ```text
 Ejercicio-3/
-│
-├── index.html
 ├── main.js
 ├── README.md
-│
-├── modelos/
-│   └── tarea.js
 │
 ├── datos/
 │   └── tareas.js
 │
 ├── menus/
-│   ├── menuPrincipal.js
-│   ├── verTareas.js
-│   ├── buscarTareas.js
 │   ├── agregarTarea.js
+│   ├── buscarTareas.js
 │   ├── detalleTareas.js
-│   └── editarTarea.js
+│   ├── editarTarea.js
+│   ├── menuPrincipal.js
+│   └── verTareas.js
+│
+├── modelos/
+│   └── tarea.js
 │
 └── utilidades/
     ├── mensajes.js
     └── validaciones.js
 ```
 
+## `main.js`
+
+Es el punto de entrada del programa.
+
+Desde este archivo se inicia el menú principal de la aplicación.
+
+## `datos/`
+
+Contiene los datos utilizados por el programa.
+
+El archivo `tareas.js` contiene el arreglo donde se almacenan las tareas durante la ejecución.
+
+## `menus/`
+
+Contiene las diferentes partes del programa relacionadas con las opciones que puede realizar el usuario.
+
+Por ejemplo:
+
+* Agregar una tarea.
+* Buscar tareas.
+* Ver tareas.
+* Editar una tarea.
+* Ver el detalle de una tarea.
+* Mostrar el menú principal.
+
+## `modelos/`
+
+Contiene la función utilizada para crear nuevas tareas.
+
+El archivo `tarea.js` permite generar una tarea con sus valores iniciales.
+
+## `utilidades/`
+
+Contiene funciones que son utilizadas en diferentes partes del programa.
+
+En esta carpeta se encuentran:
+
+* `mensajes.js`: contiene mensajes y funciones que se muestran durante la ejecución.
+* `validaciones.js`: contiene funciones para comprobar que los datos ingresados sean válidos.
+
 ---
 
-## Organización de los módulos
+# Modularización
 
-### `main.js`
+El programa está dividido en varios módulos utilizando `import` y `export`.
 
-Es el punto de entrada de la aplicación.
+Esto permite separar el código en diferentes archivos y utilizar solamente las funciones necesarias en cada parte del programa.
 
-Se encarga de iniciar el menú principal.
+Por ejemplo, el menú principal utiliza los módulos correspondientes a cada opción y las funciones de validación se pueden reutilizar cuando se ingresan o modifican datos.
 
-### `modelos/tarea.js`
+Esta organización ayuda a que el código sea más fácil de leer y modificar.
 
-Contiene la función encargada de crear nuevas tareas.
+---
 
-### `datos/tareas.js`
+# Validaciones
 
-Contiene el arreglo donde se almacenan todas las tareas:
+El programa realiza diferentes validaciones antes de guardar o modificar una tarea.
 
-```js
-export const misTareas = [];
+Entre ellas:
+
+* El título debe tener entre 1 y 100 caracteres.
+* La descripción puede tener hasta 500 caracteres.
+* El estado debe estar entre `1` y `4`.
+* La dificultad debe estar entre `1` y `3`.
+
+También se comprueban las opciones ingresadas en los diferentes menús.
+
+---
+
+# Ejemplo de uso
+
+Al iniciar el programa se muestra el menú principal.
+
+Un ejemplo de recorrido podría ser:
+
+```text
+1. Ver tareas
+2. Buscar tareas
+3. Agregar tarea
+4. Salir
 ```
 
-Este arreglo funciona como almacenamiento temporal durante la ejecución del programa.
+Al agregar una tarea se pueden ingresar datos como:
 
-### `menus/`
+```text
+Título: Estudiar JavaScript
+Descripción: Repasar funciones y módulos
+Estado: 1
+Dificultad: 2
+Vencimiento: 20/09/2026
+```
 
-Contiene las diferentes partes de la aplicación:
-
-* `menuPrincipal.js` → menú principal.
-* `verTareas.js` → visualización y filtrado de tareas.
-* `buscarTareas.js` → búsqueda por título.
-* `agregarTarea.js` → creación de nuevas tareas.
-* `detalleTareas.js` → visualización del detalle y eliminación.
-* `editarTarea.js` → modificación de los atributos de una tarea.
-
-### `utilidades/`
-
-Contiene funciones reutilizables:
-
-* `mensajes.js` → mensajes y elementos comunes de la interfaz.
-* `validaciones.js` → validaciones de datos ingresados por el usuario.
+Luego la tarea queda almacenada en la lista y puede ser consultada o modificada desde las diferentes opciones del programa.
 
 ---
 
-## Modularización
+# Ejecución
 
-A diferencia de una implementación monolítica, el programa se divide en diferentes módulos.
+El proyecto utiliza **Node.js** y la librería `readline-sync` para recibir información desde la terminal.
 
-Cada archivo tiene una responsabilidad específica y utiliza `export` e `import` para comunicarse con los demás módulos.
+Desde la carpeta raíz de `ALA1`, primero se pueden instalar las dependencias:
 
-Esto permite:
+```bash
+npm install
+```
 
-* Organizar mejor el código.
-* Evitar repetir funciones.
-* Facilitar el mantenimiento.
-* Separar la lógica según su responsabilidad.
-* Hacer que el código sea más fácil de comprender y modificar.
+Luego se puede ejecutar el ejercicio con:
 
----
+```bash
+npm run ejercicio3
+```
 
-## Validaciones implementadas
+En Windows PowerShell también puede utilizarse:
 
-La aplicación controla diferentes entradas del usuario:
-
-* El título es obligatorio.
-* El título no puede superar los 100 caracteres.
-* La descripción no puede superar los 500 caracteres.
-* El estado debe encontrarse entre `1` y `4`.
-* La dificultad debe encontrarse entre `1` y `3`.
-* Las opciones de los diferentes menús son validadas.
-* Se informa al usuario cuando una opción no es válida.
-* En la búsqueda se informa cuando no existen coincidencias.
+```powershell
+npm.cmd run ejercicio3
+```
 
 ---
 
-## Ejecución
+# Tecnologías utilizadas
 
-El proyecto utiliza **JavaScript con módulos ES (`import` / `export`)**.
-
-Para ejecutarlo se puede abrir `index.html` mediante un servidor local, por ejemplo utilizando **Live Server** desde Visual Studio Code.
-
-Una vez iniciado el programa, se puede utilizar la consola del navegador utilizando F12 y siguiendo las instrucciones que se dan para interactuar con los diferentes menús.
-
----
-
-## Happy Paths
-
-### Path 1 — Ver y editar una tarea
-
-1. Ingresar a **Ver Mis Tareas**.
-2. Seleccionar una tarea.
-3. Consultar el detalle.
-4. Seleccionar **Editar**.
-5. Modificar alguno de sus atributos.
-
-### Path 2 — Buscar una tarea existente
-
-1. Ingresar a **Buscar una Tarea**.
-2. Escribir una palabra o parte del título.
-3. Seleccionar uno de los resultados.
-4. Consultar el detalle.
-5. Editar la tarea si es necesario.
-
-### Path 3 — Buscar una tarea inexistente
-
-1. Ingresar a **Buscar una Tarea**.
-2. Escribir un texto que no coincida con ninguna tarea.
-3. El sistema informa que no se encontraron resultados.
-4. Volver al menú principal.
-
-### Path 4 — Crear una tarea
-
-1. Ingresar a **Agregar una Tarea**.
-2. Introducir el título.
-3. Introducir la descripción.
-4. Seleccionar el estado.
-5. Seleccionar la dificultad.
-6. Opcionalmente ingresar una fecha de vencimiento.
-7. La tarea se guarda en el sistema.
-
----
-
-## Tecnologías utilizadas
-
-* **JavaScript**
-* **HTML**
-* **Módulos ES (`import` / `export`)**
-* **Visual Studio Code**
-* **Live Server**
+* JavaScript
+* Node.js
+* `readline-sync`
+* Módulos ES (`import` / `export`)
 
 ---
 
 ## Autor
 
 **Mateo González**
-
 Programador Universitario de Sistemas — UNViMe

@@ -1,4 +1,5 @@
-// Menú Principal del gestor de tareas, acá es donde se presentan las opciones principales al usuario.
+import readlineSync from "readline-sync";
+
 import { verTareas } from "./verTareas.js";
 import { buscarTarea } from "./buscarTareas.js";
 import { agregarTarea } from "./agregarTarea.js";
@@ -10,15 +11,15 @@ import {
 } from "../utilidades/mensajes.js";
 
 export function menuPrincipal() {
-
     let opcion = -1;
 
     while (opcion !== 0) {
-
         console.clear();
 
         separador();
+
         console.log("          ¡HOLA! ¿QUÉ DESEAS HACER HOY?");
+
         separador();
 
         console.log("\n [1] Ver Mis Tareas.");
@@ -28,9 +29,8 @@ export function menuPrincipal() {
 
         separador();
 
-        opcion = prompt("Eliga el número de la opción deseada: ");
+        opcion = readlineSync.question("> ");
 
-        // Validamos que se haya ingresado una opción numérica
         if (!Number.isInteger(Number(opcion))) {
             opcionInvalida();
             pausar();
@@ -40,7 +40,6 @@ export function menuPrincipal() {
         opcion = Number(opcion);
 
         switch (opcion) {
-
             case 1:
                 verTareas();
                 break;
@@ -55,9 +54,7 @@ export function menuPrincipal() {
 
             case 0:
                 console.clear();
-
-                console.log("\n- Preciona F5 para que aparezca la lista\n\n");
-
+                console.log("\n- Volvé Pronto! :(\n");
                 break;
 
             default:

@@ -1,3 +1,5 @@
+import readlineSync from "readline-sync";
+
 import { misTareas } from "../datos/tareas.js";
 
 import {
@@ -44,11 +46,7 @@ export function editarTarea(indice) {
 
         separador();
 
-        const entrada = prompt("> ");
-
-        if (entrada === null) {
-            return;
-        }
+        const entrada = readlineSync.question("> ");
 
         if (!Number.isInteger(Number(entrada))) {
             opcionInvalida();
@@ -91,14 +89,12 @@ export function editarTarea(indice) {
 }
 
 
-
-
 function editarTitulo(tarea) {
-
+    
+    console.clear();
     separador();
-
     console.log(
-        `Ingrese el nuevo Título: (Anterior: ${tarea.titulo})`
+        `Ingrese el nuevo Título: (Anterior: ${tarea.titulo})\n`
     );
 
     console.log("[ENTER] Para mantener el actual");
@@ -106,11 +102,13 @@ function editarTitulo(tarea) {
 
     separador();
 
-    const nuevoTitulo = prompt("> ");
+    const nuevoTitulo = readlineSync.question("> ");
 
-    if (nuevoTitulo === null || nuevoTitulo === "0") {
+    if (nuevoTitulo === "0") {
 
-        console.log("\n- Modificación Cancelada. Sin Cambios\n");
+        separador();
+        console.log("- Modificación Cancelada. Sin Cambios");
+        separador();
 
         pausar();
         return;
@@ -118,9 +116,9 @@ function editarTitulo(tarea) {
 
     // ENTER = mantener el valor actual
     if (nuevoTitulo === "") {
-
-        console.log("\n- No se realizaron cambios.\n");
-
+        separador();
+        console.log("- No se realizaron cambios.");
+        separador();
         pausar();
         return;
     }
@@ -143,36 +141,37 @@ function editarTitulo(tarea) {
 
     actualizarUltimaEdicion(tarea);
 
+    separador();
     modificacionExitosa("Título");
     pausar();
 }
 
 
-
-
 function editarDescripcion(tarea) {
 
+    console.clear();
     separador();
-
     console.log(
         "Ingrese la nueva descripción:"
     );
 
     console.log(
-        `(Descripción Anterior: ${tarea.descripcion || "Sin Descripción"})`
+        `(Descripción Anterior: ${tarea.descripcion || "Sin Descripción"})\n`
     );
 
     console.log("[ENTER] Para mantener la actual");
-    console.log("[ESPACIO] Para borrar la descripción");
+    console.log("[1] Para borrar la descripción");
     console.log("[0] Para Cancelar Cambios");
 
     separador();
 
-    const nuevaDescripcion = prompt("> ");
+    const nuevaDescripcion = readlineSync.question("> ");
 
-    if (nuevaDescripcion === null || nuevaDescripcion === "0") {
+    if (nuevaDescripcion === "0") {
 
-        console.log("\n- Modificación Cancelada. Sin Cambios\n");
+        separador();
+        console.log("- Modificación Cancelada. Sin Cambios");
+        separador();
 
         pausar();
         return;
@@ -181,19 +180,22 @@ function editarDescripcion(tarea) {
     // ENTER = mantener el valor actual
     if (nuevaDescripcion === "") {
 
-        console.log("\n- No se realizaron cambios.\n");
+        separador();
+        console.log("- No se realizaron cambios.");
+        separador();
 
         pausar();
         return;
     }
 
-    // Un espacio = borrar el atributo
-    if (nuevaDescripcion === " ") {
+    // 1 = borrar la descripción
+    if (nuevaDescripcion === "1") {
 
         tarea.descripcion = "";
 
         actualizarUltimaEdicion(tarea);
 
+        separador();
         modificacionExitosa("Descripción");
         pausar();
         return;
@@ -213,17 +215,16 @@ function editarDescripcion(tarea) {
 
     actualizarUltimaEdicion(tarea);
 
+    separador();
     modificacionExitosa("Descripción");
     pausar();
 }
 
 
-
-
 function editarEstado(tarea) {
 
-    //separador();
-
+    console.clear();
+    separador();
     console.log("Seleccione el nuevo estado:\n");
 
     console.log(" [1] Pendiente");
@@ -233,16 +234,12 @@ function editarEstado(tarea) {
 
     separador();
 
-    const nuevoEstado = prompt("> ");
-
-    if (nuevoEstado === null) {
-        return;
-    }
+    const nuevoEstado = readlineSync.question("> ");
 
     if (!estadoValido(nuevoEstado)) {
 
         console.log(
-            "\n- Estado inválido. No se realizaron cambios.\n"
+            "==================================================\n- Estado inválido. No se realizaron cambios.\n=================================================="
         );
 
         pausar();
@@ -253,17 +250,16 @@ function editarEstado(tarea) {
 
     actualizarUltimaEdicion(tarea);
 
+    separador();
     modificacionExitosa("Estado");
     pausar();
 }
 
 
-
-
 function editarDificultad(tarea) {
 
+    console.clear();
     separador();
-
     console.log("Seleccione la nueva dificultad:\n");
 
     console.log(" [1] Fácil");
@@ -272,16 +268,12 @@ function editarDificultad(tarea) {
 
     separador();
 
-    const nuevaDificultad = prompt("> ");
-
-    if (nuevaDificultad === null) {
-        return;
-    }
+    const nuevaDificultad = readlineSync.question("> ");
 
     if (!dificultadValida(nuevaDificultad)) {
 
         console.log(
-            "\n- Dificultad inválida. No se realizaron cambios.\n"
+            "==================================================\n- Dificultad inválida. No se realizaron cambios.\n=================================================="
         );
 
         pausar();
@@ -292,49 +284,61 @@ function editarDificultad(tarea) {
 
     actualizarUltimaEdicion(tarea);
 
+    separador();
     modificacionExitosa("Dificultad");
     pausar();
 }
 
 
-
-
 function editarVencimiento(tarea) {
+
+    console.clear();
+    separador();
     console.log(
         "- Ingrese la nueva fecha de Vencimiento (dd/mm/aaaa):"
     );
 
     console.log(
-        `(Fecha Anterior: ${tarea.vencimiento || "Sin Datos"})`
+        `(Fecha Anterior: ${tarea.vencimiento || "Sin Datos"})\n`
     );
 
     console.log("[ENTER] Para mantener la actual");
-    console.log("[ESPACIO] Para borrar la fecha");
+    console.log("[1] Para borrar la fecha");
+    console.log("[0] Para Cancelar Cambios");
 
     separador();
 
-    const nuevaFecha = prompt("> ");
+    const nuevaFecha = readlineSync.question("> ");
 
-    if (nuevaFecha === null) {
-        return;
-    }
+    // 0 = cancelar
+    if (nuevaFecha === "0") {
 
-    // ENTER = mantener
-    if (nuevaFecha === "") {
-
-        console.log("\n- No se realizaron cambios.\n");
+        separador();
+        console.log("- Modificación Cancelada. Sin Cambios");
+        separador();
 
         pausar();
         return;
     }
 
-    // ESPACIO = borrar
-    if (nuevaFecha === " ") {
+    // ENTER = mantener
+    if (nuevaFecha === "") {
+        separador();
+        console.log("- No se realizaron cambios.");
+        separador();
+
+        pausar();
+        return;
+    }
+
+    // 1 = borrar
+    if (nuevaFecha === "1") {
 
         tarea.vencimiento = null;
 
         actualizarUltimaEdicion(tarea);
 
+        separador();
         modificacionExitosa("Fecha de Vencimiento");
         pausar();
         return;
@@ -344,6 +348,7 @@ function editarVencimiento(tarea) {
 
     actualizarUltimaEdicion(tarea);
 
+    separador();
     modificacionExitosa("Fecha de Vencimiento");
     pausar();
 }

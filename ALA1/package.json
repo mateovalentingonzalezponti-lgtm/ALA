@@ -1,0 +1,17 @@
+{
+  "name": "ala1",
+  "version": "1.0.0",
+  "description": "Aplicando lo Aprendido 1 - Paradigmas de Programación",
+  "type": "module",
+  "scripts": {
+    "ejercicio2": "node Ejercicio-2/Original/main.js",
+    "ejercicio2:bonus": "node Ejercicio-2/Bonus/main.js",
+    "ejercicio3": "node Ejercicio-3/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}

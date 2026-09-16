@@ -1,4 +1,6 @@
 // Un menú muy simple para agregar tareas, se solicitan los datos al usuario y se valida lo ingresado.
+import readlineSync from "readline-sync";
+
 import { crearTarea } from "../modelos/tarea.js";
 import { misTareas } from "../datos/tareas.js";
 
@@ -24,13 +26,9 @@ export function agregarTarea() {
     console.log("           ESTÁS CREANDO UNA NUEVA TAREA");
     separador();
 
-    let titulo = prompt(
-        "- Ingrese el título de la tarea (Máx. 100 carac.):"
+    let titulo = readlineSync.question(
+        "- Ingrese el título de la tarea (Máx. 100 carac.):\n> "
     );
-
-    if (titulo === null) {
-        return;
-    }
 
     titulo = titulo.trim();
 
@@ -45,14 +43,10 @@ export function agregarTarea() {
         return;
     }
 
-
-    let descripcion = prompt(
-        "- Ingrese la descripción (Máx. 500 carac.):"
+    separador();
+    let descripcion = readlineSync.question(
+        "- Ingrese la descripción (Máx. 500 carac.):\n> "
     );
-
-    if (descripcion === null) {
-        return;
-    }
 
     if (!descripcionValida(descripcion)) {
 
@@ -64,8 +58,7 @@ export function agregarTarea() {
         return;
     }
 
-   
-    //separador();
+    separador();
     console.log("Seleccione el estado de la tarea:\n");
 
     console.log(" [1] Pendiente");
@@ -75,15 +68,10 @@ export function agregarTarea() {
 
     separador();
 
-    const estadoIngresado = prompt("> ");
-
-    if (estadoIngresado === null) {
-        return;
-    }
+    const estadoIngresado = readlineSync.question("> ");
 
     if (!estadoValido(estadoIngresado)) {
-
-        //separador();
+        separador();
         console.log("- Estado inválido. No se creó la tarea.");
         separador();
 
@@ -93,9 +81,7 @@ export function agregarTarea() {
 
     const estado = Number(estadoIngresado);
 
-
-
-    //separador();
+    separador();
     console.log("Seleccione la dificultad de la tarea:\n");
 
     console.log(" [1] Fácil");
@@ -104,11 +90,7 @@ export function agregarTarea() {
 
     separador();
 
-    const dificultadIngresada = prompt("> ");
-
-    if (dificultadIngresada === null) {
-        return;
-    }
+    const dificultadIngresada = readlineSync.question("> ");
 
     if (!dificultadValida(dificultadIngresada)) {
 
@@ -122,29 +104,20 @@ export function agregarTarea() {
 
     const dificultad = Number(dificultadIngresada);
 
-
-
-    //separador();
+    separador();
     console.log("Ingrese la fecha de vencimiento.");
     console.log("(Formato: dd/mm/aaaa)");
     console.log("Deje vacío si no desea establecer una fecha.");
 
     separador();
 
-    const vencimientoIngresado = prompt("> ");
-
-    if (vencimientoIngresado === null) {
-        return;
-    }
+    const vencimientoIngresado = readlineSync.question("> ");
 
     let vencimiento = null;
 
     if (vencimientoIngresado.trim() !== "") {
         vencimiento = vencimientoIngresado.trim();
     }
-
-
-
 
 
     const nuevaTarea = crearTarea(titulo, descripcion);
@@ -155,7 +128,8 @@ export function agregarTarea() {
     nuevaTarea.vencimiento = vencimiento;
 
     misTareas.push(nuevaTarea);
-    tareaGuardada();
+    separador();
+    tareaGuardada(nuevaTarea.estado);
 
     pausar();
 }

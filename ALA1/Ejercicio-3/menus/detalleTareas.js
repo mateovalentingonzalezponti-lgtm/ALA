@@ -1,3 +1,5 @@
+import readlineSync from "readline-sync";
+
 import { misTareas } from "../datos/tareas.js";
 import { editarTarea } from "./editarTarea.js";
 
@@ -27,7 +29,6 @@ export function detalleTarea(indice) {
         separador();
         console.log("              DETALLE DE LA TAREA");
         separador();
-
 
 
         if (tarea.titulo.trim() === "") {
@@ -73,11 +74,7 @@ export function detalleTarea(indice) {
 
         separador();
 
-        const entrada = prompt("> ");
-
-        if (entrada === null) {
-            return;
-        }
+        const entrada = readlineSync.question("> ");
 
         if (!Number.isInteger(Number(entrada))) {
             opcionInvalida();
@@ -108,8 +105,6 @@ export function detalleTarea(indice) {
 }
 
 
-
-
 function obtenerNombreEstado(estado) {
 
     switch (estado) {
@@ -132,8 +127,6 @@ function obtenerNombreEstado(estado) {
 }
 
 
-
-
 function obtenerDificultad(dificultad) {
 
     switch (dificultad) {
@@ -153,7 +146,6 @@ function obtenerDificultad(dificultad) {
 }
 
 
-
 function formatearFecha(fecha) {
 
     if (!fecha) {
@@ -168,31 +160,31 @@ function formatearFecha(fecha) {
 }
 
 
-
-
 function eliminarTarea(indice) {
 
     const tarea = misTareas[indice];
-
-    //separador();
+    
+    separador();
     console.log("- ¿Seguro que Quieres ELIMINARLA?");
     console.log("[1] Sí | [0] No");
 
     separador();
 
-    const confirmar = prompt("> ");
+    const confirmar = readlineSync.question("> ");
 
     if (confirmar === "1") {
 
         misTareas.splice(indice, 1);
 
+        separador();
         tareaEliminada();
         pausar();
 
         return;
     }
 
-    console.log("- Eliminación Cancelada. La tarea sigue guardada.\n");
+    separador();
+    console.log("- Eliminación Cancelada. La tarea sigue guardada.");
     separador();
     pausar();
 }

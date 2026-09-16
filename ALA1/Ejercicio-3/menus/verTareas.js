@@ -1,3 +1,5 @@
+import readlineSync from "readline-sync";
+
 import { misTareas } from "../datos/tareas.js";
 import { detalleTarea } from "./detalleTareas.js";
 
@@ -28,11 +30,7 @@ export function verTareas() {
 
         separador();
 
-        const entrada = prompt("Eliga el número de la opción deseada: ");
-
-        if (entrada === null) {
-            return;
-        }
+        const entrada = readlineSync.question("> ");
 
         // Validamos que se haya ingresado un número
         if (!Number.isInteger(Number(entrada))) {
@@ -56,8 +54,6 @@ export function verTareas() {
         mostrarTareas(opcionFiltro);
     }
 }
-
-
 
 
 function mostrarTareas(opcionFiltro) {
@@ -101,8 +97,6 @@ function mostrarTareas(opcionFiltro) {
     }
 
 
-
-
     const tareasEncontradas = misTareas
         .map((tarea, indice) => ({
             tarea: tarea,
@@ -119,6 +113,7 @@ function mostrarTareas(opcionFiltro) {
             return tarea.estado === opcionFiltro - 1;
         });
 
+
     if (tareasEncontradas.length === 0) {
 
         console.log("\n- No se Encontraron Tareas con el");
@@ -129,8 +124,6 @@ function mostrarTareas(opcionFiltro) {
         pausar();
         return;
     }
-
-
 
 
     tareasEncontradas.forEach(({ tarea }, posicion) => {
@@ -152,9 +145,9 @@ function mostrarTareas(opcionFiltro) {
 
     separador();
 
-    const seleccion = prompt("> ");
+    const seleccion = readlineSync.question("> ");
 
-    if (seleccion === null || seleccion === "0") {
+    if (seleccion === "0") {
         return;
     }
 
@@ -166,9 +159,10 @@ function mostrarTareas(opcionFiltro) {
         numero < 1 ||
         numero > tareasEncontradas.length
     ) {
-
-        console.log("\n- Ese Número de Tarea no existe en la Lista.\n");
-
+        separador();
+        console.log("- Ese Número de Tarea no existe en la Lista.");
+        separador();
+        
         pausar();
         return;
     }

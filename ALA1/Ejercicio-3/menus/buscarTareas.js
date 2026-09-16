@@ -1,3 +1,5 @@
+import readlineSync from "readline-sync";
+
 import { misTareas } from "../datos/tareas.js";
 import { detalleTarea } from "./detalleTareas.js";
 
@@ -31,11 +33,11 @@ export function buscarTarea() {
         return;
     }
 
-    const criterio = prompt(
+    const criterio = readlineSync.question(
         "Ingrese el título o palabra clave a buscar:\n> "
     );
 
-    if (criterio === null || criterio.trim() === "") {
+    if (criterio.trim() === "") {
         return;
     }
 
@@ -50,8 +52,6 @@ export function buscarTarea() {
     separador();
 
 
-
-
     const tareasEncontradas = misTareas
         .map((tarea, indice) => ({
             tarea: tarea,
@@ -63,8 +63,6 @@ export function buscarTarea() {
                 .toLowerCase()
                 .includes(textoBusqueda);
         });
-
-
 
 
     if (tareasEncontradas.length === 0) {
@@ -82,8 +80,6 @@ export function buscarTarea() {
         pausar();
         return;
     }
-
-
 
 
     tareasEncontradas.forEach(({ tarea }, posicion) => {
@@ -113,9 +109,9 @@ export function buscarTarea() {
 
     separador();
 
-    const seleccion = prompt("> ");
+    const seleccion = readlineSync.question("> ");
 
-    if (seleccion === null || seleccion === "0") {
+    if (seleccion === "0") {
         return;
     }
 
