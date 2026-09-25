@@ -12,7 +12,7 @@ Actualmente, este repositorio contiene el desarrollo de **ALA 1**.
 
 # ALA 1 — Aplicando lo Aprendido 1
 
-La **ALA 1** está compuesta por tres ejercicios, cada uno con un objetivo diferente.
+La **ALA1** está compuesta por tres ejercicios, cada uno con un objetivo diferente.
 
 | Ejercicio   | Tema                                   |
 | ----------- | -------------------------------------- |
@@ -74,7 +74,7 @@ El código está organizado en diferentes módulos y carpetas para separar las d
 
 # Conceptos trabajados
 
-A lo largo de ALA 1 se trabajan diferentes conceptos de programación, entre ellos:
+A lo largo de ALA1 se trabajan diferentes conceptos de programación, entre ellos:
 
 ### Programación estructurada
 
@@ -123,7 +123,7 @@ Uso de control de versiones para registrar los cambios realizados en el proyecto
 
 # Organización del repositorio
 
-La estructura actual de ALA 1 es:
+La estructura actual de ALA1 es:
 
 ```text
 ALA1/
@@ -202,7 +202,7 @@ Actualmente:
 
 ```text
 ALA
-└── ALA 1
+└── ALA1
     ├── Ejercicio 1
     ├── Ejercicio 2
     └── Ejercicio 3
