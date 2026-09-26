@@ -121,6 +121,37 @@ Uso de control de versiones para registrar los cambios realizados en el proyecto
 
 ---
 
+# ALA 2 — Aplicando lo Aprendido 2
+
+La **ALA 2** está compuesta por dos ejercicios, centrados en incorporar **TypeScript** al desarrollo realizado en ALA 1.
+
+| Ejercicio   | Tema                                             |
+| ----------- | ------------------------------------------------ |
+| Ejercicio 1 | TypeScript y programación estructurada           |
+| Ejercicio 2 | Gestor de Tareas en TypeScript                    |
+
+Cada ejercicio tiene su propio código y un `README.md` con información sobre su funcionamiento.
+
+---
+
+# Ejercicios — ALA 2
+
+## Ejercicio 1
+
+En este ejercicio se analiza **TypeScript** desde el enfoque de la **programación estructurada**, siguiendo los cuatro componentes de un paradigma mencionados por Kuhn.
+
+[Ver README del Ejercicio 1](./ALA2/Ejercicio-1/README.md)
+
+---
+
+## Ejercicio 2
+
+En este ejercicio se desarrolla una nueva versión del **Gestor de Tareas** (originalmente hecho en JavaScript en ALA 1 — Ejercicio 3), aplicando TypeScript: tipado estático, tipos unión, *type guards* y una configuración de compilación estricta.
+
+[Ver README del Ejercicio 2](./ALA2/Ejercicio-2/README.md)
+
+---
+
 # Organización del repositorio
 
 La estructura actual de ALA 1 es:
@@ -150,6 +181,22 @@ ALA1/
 └── Ejercicio-3/
     ├── README.md
     ├── main.js
+    ├── datos/
+    ├── menus/
+    ├── modelos/
+    └── utilidades/
+ALA2/
+│
+├── Ejercicio-1/
+│   └── README.md
+│
+└── Ejercicio-2/
+    ├── README.md
+    ├── package.json
+    ├── package-lock.json
+    ├── tsconfig.json
+    ├── .gitignore
+    ├── main.ts
     ├── datos/
     ├── menus/
     ├── modelos/
@@ -202,10 +249,15 @@ Actualmente:
 
 ```text
 ALA
-└── ALA 1
+├── ALA 1
+│   ├── Ejercicio 1
+│   ├── Ejercicio 2
+│   └── Ejercicio 3
+│
+└── ALA 2
     ├── Ejercicio 1
-    ├── Ejercicio 2
-    └── Ejercicio 3
+    └── Ejercicio 2
+
 ```
 
 En el futuro, esta estructura podrá ampliarse con nuevas ALA.
